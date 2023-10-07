@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="assets/styles.css" rel="stylesheet">
+    <title>HTMLoad – Hot Reloading for Static Sites</title>
+    <style>
+        /* Make the iframe occupy the full viewport */
+        @keyframes revealFrames {
+            0%   { width: 0px; }    /* Show the first shape */
+            50%  { width: 32px; }    /* Show the first two shapes */
+            100% { width: 64px; }    /* Show all three shapes */
+        }
+    </style>
+</head>
+<body class="bg-zinc-100 font-inter text-zinc-500">
+    <!-- Header -->
+    <header class="container mx-auto px-6 py-8 max-w-screen-xl flex justify-between items-center">
+        <!-- Logo -->
+        <div class="text-zinc-50">
+            <img style="display:inline-block; vertical-align:bottom;" src="assets/HTML.svg" alt="Logo" class="h-6">
+            <div style="display:inline-block; vertical-align:bottom; animation: revealFrames 2.5s steps(2) infinite; overflow: hidden;">
+                <svg width="42" height="18" viewBox="0 0 42 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="42" height="18" fill="white"/>
+                    <path d="M6.02333 18C4.96555 18 4.10999 17.7824 3.45666 17.3473C2.81888 16.8971 2.5 16.2819 2.5 15.5016V13.5434C2.5 12.7481 2.81888 12.1254 3.45666 11.6752C4.10999 11.2251 4.96555 11 6.02333 11C7.06555 11 7.90555 11.2251 8.54333 11.6752C9.18111 12.1254 9.5 12.7481 9.5 13.5434V15.5016C9.5 16.2819 9.17334 16.8971 8.52 17.3473C7.86667 17.7824 7.03444 18 6.02333 18Z" fill="black"/>
+                    <path d="M21.0233 18C19.9656 18 19.11 17.7824 18.4567 17.3473C17.8189 16.8971 17.5 16.2819 17.5 15.5016V13.5434C17.5 12.7481 17.8189 12.1254 18.4567 11.6752C19.11 11.2251 19.9656 11 21.0233 11C22.0656 11 22.9056 11.2251 23.5433 11.6752C24.1811 12.1254 24.5 12.7481 24.5 13.5434V15.5016C24.5 16.2819 24.1733 16.8971 23.52 17.3473C22.8667 17.7824 22.0344 18 21.0233 18Z" fill="black"/>
+                    <path d="M36.0233 18C34.9656 18 34.11 17.7824 33.4567 17.3473C32.8189 16.8971 32.5 16.2819 32.5 15.5016V13.5434C32.5 12.7481 32.8189 12.1254 33.4567 11.6752C34.11 11.2251 34.9656 11 36.0233 11C37.0656 11 37.9056 11.2251 38.5433 11.6752C39.1811 12.1254 39.5 12.7481 39.5 13.5434V15.5016C39.5 16.2819 39.1733 16.8971 38.52 17.3473C37.8667 17.7824 37.0344 18 36.0233 18Z" fill="black"/>
+                </svg>                    
+            </div>
+        </div>
+
+        <!-- Button -->
+        <button class="bg-zinc-950 text-zinc-50 px-4 py-2 font-semibold rounded-lg hover:bg-zinc-400"
+            onclick="window.location.href='https://github.com/stritt/params';">
+            ★
+            <i class="hidden sm:inline-block">on GitHub</i>
+        </button>
+    </header>
+    <!-- Hero Section -->
+    <section class="flex flex-col justify-center items-center h-screen text-center">
+        <h1 class="text-7xl font-bold mb-4 text-zinc-900">🔥 Hot reloading for static sites 🔥</h1>
+        <p class="text-xl mb-10">Simply select a file to watch, and start making your changes, it's that easy.</p>
+        <div id="contentDiv"></div>
+        <button class="bg-zinc-950 text-zinc-50 px-4 py-2 font-semibold rounded-lg hover:bg-zinc-400" onclick="window.location.href='./htmload.html';">Select File</button>
+    </section>   
+</body>
+</html>

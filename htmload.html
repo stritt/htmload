@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTMLoad – Hot Reloading for Static Sites</title>
+    <style>
+        /* Make the iframe occupy the full viewport */
+        iframe {
+            border: none;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh;">
+        <div id="contentDiv"></div>
+        <h1 style="font-family:sans-serif">Select File to Watch</h1>
+        <button id="selectFileButton" onclick="selectAndWatch()">Select File to Watch</button>
+        <div id="notification" style="display:none;">Please reselect the file to continue watching.</div>
+    </div>  
+
+<script>
+let fileHandle = null;
+let lastKnownContent = localStorage.getItem('fileContent') || "";
+let token = null;
+let isFirstTime = true;
+
+async function selectAndWatch() {
+    try {
+        // Ask the user to select a file
+        [fileHandle] = await window.showOpenFilePicker();
+        console.log("File selected:", fileHandle);
+        
+        const file = await fileHandle.getFile();
+        const contents = await file.text();
+
+        // Store the initial content to local storage
+        localStorage.setItem('fileContent', contents);
+
+        // Load the initial content immediately
+        document.getElementById('contentDiv').innerHTML = contents;
+
+        // Create a unique token for this file and update the URL
+        token = Math.random().toString(36).substring(7);
+        window.location.hash = token;
+    } catch (error) {
+        console.error("Error during file selection:", error);
+    }
+}
+
+async function checkForChanges() {
+    try {
+        const file = await fileHandle.getFile();
+        const currentContent = await file.text();
+
+        if (currentContent !== lastKnownContent) {
+            console.log("File has changed. Reloading content...");
+            document.getElementById('contentDiv').innerHTML = currentContent;
+            lastKnownContent = currentContent;
+            localStorage.setItem('fileContent', currentContent);
+        } else {
+            console.log("No changes detected.");
+        }
+
+    } catch (error) {
+        console.error("Error during change check:", error);
+    }
+
+    // Wait for a few seconds before checking again
+    setTimeout(checkForChanges, 3000); // checks every 3 seconds
+}
+
+// Start watching immediately
+checkForChanges();
+
+if (window.location.hash) {
+    token = window.location.hash.substring(1);
+    document.getElementById("notification").style.display = "block";
+}
+</script>
+</body>
+</html>
